@@ -1,0 +1,124 @@
+# Teeny JavaScript Utilities
+
+[![npm version](https://badge.fury.io/js/teeny-js-utilities.svg)](https://badge.fury.io/js/teeny-js-utilities)
+<a href="https://david-dm.org/aversini/teeny-js-utilities"><img src="https://david-dm.org/aversini/teeny-js-utilities.svg" alt="Dependency Status"></a>
+<a href="https://david-dm.org/aversini/teeny-js-utilities/?type=dev"><img src="https://david-dm.org/aversini/teeny-js-utilities/dev-status.svg" alt="devDependency Status"></a> ![Build Status](https://github.com/aversini/teeny-js-utilities/workflows/coverage/badge.svg) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/150b9c96510247b7917a6be9510e3395)](https://app.codacy.com/gh/aversini/teeny-js-utilities?utm_source=github.com&utm_medium=referral&utm_content=aversini/teeny-js-utilities&utm_campaign=Badge_Grade)
+
+> Teeny JavaScript Utilities is a package helper providing common utilities for other node packages.
+
+## Installation
+
+```sh
+> cd your-project
+> npm install --save teeny-js-utilities
+```
+
+## API
+
+### displayErrorMessages(messages, exitStatus)
+
+Log multiple error messages at the prompt using `console.error` behind the scenes. If `exitStatus` is a number, the process will exit with this value. Use "false" to prevent the process from terminating.
+
+NOTE: if `messages` is not an array, or is an empty array, the method does nothing.
+
+#### Arguments
+
+| Argument   | Type              | Default |
+| ---------- | ----------------- | ------- |
+| messages   | Array of String   | [ ]     |
+| exitStatus | Number or Boolean | 0       |
+
+### printHTTPLogs(req)
+
+Log simplified HTTP logs at the prompt, extracting only the methods and the path from the argument. Each log is prefixed with a locally formatted timestamp.
+
+#### Arguments
+
+| Argument   | Type   | Default |
+| ---------- | ------ | ------- |
+| req        | Object | { }     |
+| req.method | String | ""      |
+| req.url    | String | ""      |
+
+#### Example
+
+```js
+const { printHTTPLogs } = require("teeny-js-utilities");
+printHTTPLogs({ method: "GET", path: "/api" });
+printHTTPLogs({ method: "GET", path: "/404.html" });
+```
+
+will print something approaching this at the prompt:
+
+```sh
+[ Sat Oct 31 2020 5:02:27 PM ] GET /api
+[ Sat Oct 31 2020 5:02:28 PM ] GET /404.html
+```
+
+### async runCommand(command, options)
+
+Runs a shell command asynchronously and depending on the options, returns `stdout` as a string, or both `stdout` and `stderr` as an object if the `option.verbose` flag is true.
+If the command fails to run (invalid command or the commands status is anything but 0), the call will throw an exception. The exception can be ignored if the `options.ignoreError` flag is true.
+
+#### Arguments
+
+| Argument            | Type    | Default |
+| ------------------- | ------- | ------- |
+| command             | String  | ""      |
+| options             | Object  | { }     |
+| options.verbose     | Boolean | false   |
+| options.ignoreError | Boolean | false   |
+
+#### Examples
+
+```js
+const { runCommand } = require("teeny-js-utilities");
+const { stdout, stderr } = await runCommand("npm config ls", { verbose: true });
+const res = await runCommand("git add -A && git commit -a -m 'First commit'");
+```
+
+### shallowMerge(objA, objB)
+
+Merges 2 objects into one. The second object takes precedence if keys are duplicated.
+
+WARNING: this method will alter both objects!
+
+#### Arguments
+
+| Argument | Type   | Default |
+| -------- | ------ | ------- |
+| objA     | Object | {}      |
+| objB     | Object | {}      |
+
+#### Example
+
+```js
+const { shallowMerge } = require("teeny-js-utilities");
+const objA = { port: 123, cache: false, gzip: true };
+const objB = { port: 456, gzip: false };
+const objC = shallowMerge(objA, objB);
+
+// objC is { port: 456, cache: false, gzip: false };
+```
+
+### upperFirst(str)
+
+Capitalize the first letter of the provided string (and not all the words).
+
+#### Arguments
+
+| Argument | Type   | Default |
+| -------- | ------ | ------- |
+| str      | String | ""      |
+
+#### Examples
+
+```js
+const { upperFirst } = require("teeny-js-utilities");
+const str = upperFirst("hello world");
+// str is "Hello world"
+```
+
+## License
+
+MIT © Arno Versini

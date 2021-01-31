@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/aversini/teeny-js-utilities/compare/v1.0.0...v1.0.1) (2021-01-31)
+
+
+### Bug Fixes
+
+* trying to fix the release creating process ([bc5ba15](https://github.com/aversini/teeny-js-utilities/commit/bc5ba15dfdb2553e19322438d79ebec5657208bd))
+
+
+
 # 1.0.0 (2021-01-31)
 
 ### Features

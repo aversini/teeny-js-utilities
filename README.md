@@ -101,6 +101,27 @@ const objC = shallowMerge(objA, objB);
 // objC is { port: 456, cache: false, gzip: false };
 ```
 
+### Spinner
+
+Spinner is an "elegant terminal spinner", relying behind the scenes on the excellent [ora](https://github.com/sindresorhus/ora)
+
+#### Example
+
+```js
+const { Spinner } = require("teeny-js-utilities");
+const spinner = new Spinner("Updating package.json...");
+// long running process...
+spinner.text = "Git stage and commit, please wait...")
+// long running process...
+spinner.text = "Almost there..."
+// long running process...
+if (success) {
+  spinner.succeed("Process completed successfully!");
+} else {
+  spinner.fail("Process failed miserably...");
+}
+```
+
 ### upperFirst(str)
 
 Capitalize the first letter of the provided string (and not all the words).

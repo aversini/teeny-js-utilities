@@ -14,5 +14,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Generate GitHub Release
         uses: lsegal/github-release-from-changelog-action@latest
+        with:
+          filename: "CHANGELOG.md"
+          title: "v$tag"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

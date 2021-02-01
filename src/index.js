@@ -76,12 +76,16 @@ const runCommand = async (
 
 /**
  *
- * WARNING: this method is nasty! It will alter the original
- * objects... This needs to be fixed, but for now, it's what it is.
+ * WARNING: this method is nasty! It will mutate the first object...
  *
  */
-const shallowMerge = (defaultConfig, customConfig) =>
-  _.merge(defaultConfig, customConfig);
+const shallowMerge = (defaultConfig, customConfig, customizer) => {
+  if (typeof customizer === "function") {
+    return _.mergeWith(defaultConfig, customConfig, customizer);
+  } else {
+    return _.merge(defaultConfig, customConfig);
+  }
+};
 
 const printHTTPLogs = (req) => {
   const now = new Date();

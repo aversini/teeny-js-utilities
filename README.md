@@ -77,20 +77,25 @@ const { stdout, stderr } = await runCommand("npm config ls", { verbose: true });
 const res = await runCommand("git add -A && git commit -a -m 'First commit'");
 ```
 
-### shallowMerge(objA, objB)
+### shallowMerge(objA, objB, customizer)
 
-Merges 2 objects into one. The second object takes precedence if keys are duplicated.
+Wrapper method for lodash `merge()` and `mergeWith()` methods.
 
-WARNING: this method will alter both objects!
+Without the `customizer` function, this method recursively merges own and inherited enumerable string keyed properties of source objects into the destination object. Source properties that resolve to undefined are skipped if a destination value exists. Array and plain object properties are merged recursively. Other objects and value types are overridden by assignment. Source objects are applied from left to right. Subsequent sources overwrite property assignments of previous sources.
+
+With the `customizer` function, the behavior is the same except that `customizer` is invoked to produce the merged values of the destination and source properties. If customizer returns undefined, merging is handled by the `shallowMerge` instead. The customizer is invoked with six arguments: `(objValue, srcValue, key, object, source, stack)`
+
+WARNING: this method will mutate objA!
 
 #### Arguments
 
-| Argument | Type   | Default |
-| -------- | ------ | ------- |
-| objA     | Object | {}      |
-| objB     | Object | {}      |
+| Argument   | Type     | Default   |
+| ---------- | -------- | --------- |
+| objA       | Object   | {}        |
+| objB       | Object   | {}        |
+| customizer | Function | undefined |
 
-#### Example
+#### Examples
 
 ```js
 const { shallowMerge } = require("teeny-js-utilities");
@@ -99,6 +104,19 @@ const objB = { port: 456, gzip: false };
 const objC = shallowMerge(objA, objB);
 
 // objC is { port: 456, cache: false, gzip: false };
+```
+
+```js
+const { shallowMerge } = require("teeny-js-utilities");
+const objA = { a: [1], b: [2] };
+const objB = { a: [3], b: [4] };
+const objC = shallowMerge(objA, objB, (objValue, srcValue) => {
+  if (_.isArray(objValue)) {
+    return objValue.concat(srcValue);
+  }
+});
+
+// objC is { 'a': [1, 3], 'b': [2, 4] };
 ```
 
 ### Spinner

@@ -1,3 +1,6 @@
+/* eslint-disable no-magic-numbers */
+const _ = require("lodash");
+
 const {
   deepEqual,
   displayErrorMessages,
@@ -44,9 +47,11 @@ describe("when testing for individual utilities wtih no logging side-effects", (
       runCommand("not-a-command", { ignoreError: true })
     ).resolves.toBeUndefined();
   });
+});
 
-  it("should return a new configuration with custom nexPossible", async () => {
-    const configA = {
+describe("when testing for merging utilities with no logging side-effects", () => {
+  it("should return a new configuration with keys for objB replacing keys from objA with shallowMerge", async () => {
+    const configDefault = {
       port: 8080,
       cache: 0,
       cors: false,
@@ -56,36 +61,30 @@ describe("when testing for individual utilities wtih no logging side-effects", (
       path: process.cwd(),
       headers: [
         {
-          "X-Powered-By": "Teeny Static Server",
+          key1: "value1",
         },
-      ],
-    };
-    const configB = {
-      cache: 0,
-      cors: false,
-      gzip: true,
-      logs: false,
-      open: false,
-      path: process.cwd(),
-      port: 8080,
-      headers: [
         {
-          "X-Powered-By": "Teeny Static Server",
+          key2: "value2",
         },
       ],
     };
-    const configC = {
+    const configCustom = {
       port: 8081,
       gzip: false,
+      headers: [
+        {
+          key1: "newValue1",
+        },
+      ],
     };
-    expect(deepEqual(configA, configB)).toBe(true);
-    expect(deepEqual(configA, configC)).toBe(false);
+    expect(deepEqual(configDefault, configDefault)).toBe(true);
+    expect(deepEqual(configDefault, configCustom)).toBe(false);
     /**
      * This method will alter the objects, so no way to test for their
      * equality AFTER the merge is done... Only thing we can do is test
      * that the end result gets the right values.
      */
-    const res = shallowMerge(configA, configC);
+    const res = shallowMerge(configDefault, configCustom);
 
     // eslint-disable-next-line no-magic-numbers
     expect(res.port).toBe(8081);
@@ -95,9 +94,85 @@ describe("when testing for individual utilities wtih no logging side-effects", (
     expect(res.logs).toBe(false);
     expect(res.open).toBe(false);
     expect(res.path).toBe(process.cwd());
+
     expect(
-      deepEqual(res.headers, [{ "X-Powered-By": "Teeny Static Server" }])
+      deepEqual(res.headers, [{ key1: "newValue1" }, { key2: "value2" }])
     ).toBe(true);
+  });
+
+  it("should behave exactly as lodash.merge", async () => {
+    const object = {
+      a: [{ b: 2 }, { d: 4 }],
+    };
+    const other = {
+      a: [{ c: 3 }, { e: 5 }],
+    };
+    const res = shallowMerge(object, other);
+    expect(
+      deepEqual(res, {
+        a: [
+          { b: 2, c: 3 },
+          { d: 4, e: 5 },
+        ],
+      })
+    ).toBe(true);
+  });
+
+  it("should return a new configuration with custom nexPossible", async () => {
+    const configA = {
+      bump: {
+        nextPossible: [
+          {
+            type: "minor",
+            default: false,
+          },
+        ],
+      },
+    };
+    const configB = {
+      bump: {
+        nextPossible: [
+          {
+            type: "minor",
+            default: true,
+          },
+        ],
+      },
+    };
+    expect(deepEqual(configA, configB)).toBe(false);
+    /**
+     * This method will alter the objects, so no way to test for their
+     * equality AFTER the merge is done... Only thing we can do is test
+     * that the end result gets the right values.
+     */
+    const res = shallowMerge(configA, configB, (def, cust, key) => {
+      if (key === "nextPossible") {
+        return _.orderBy(
+          _.values(_.merge(_.keyBy(def, "type"), _.keyBy(cust, "type"))),
+          ["pos"]
+        );
+      }
+    });
+
+    expect(
+      deepEqual(res.bump.nextPossible, [
+        {
+          type: "minor",
+          default: true,
+        },
+      ])
+    ).toBe(true);
+  });
+
+  it("should behave exactly as lodash.mergeWith", async () => {
+    const object = { a: [1], b: [2] };
+    const other = { a: [3], b: [4] };
+    const res = shallowMerge(object, other, (objValue, srcValue) => {
+      if (_.isArray(objValue)) {
+        return objValue.concat(srcValue);
+      }
+    });
+    expect(deepEqual(res, { a: [1, 3], b: [2, 4] })).toBe(true);
   });
 });
 

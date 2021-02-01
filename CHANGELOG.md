@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/aversini/teeny-js-utilities/compare/v1.1.0...v1.1.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* marking deepEqual method as private ([0fc6e38](https://github.com/aversini/teeny-js-utilities/commit/0fc6e38f035217210fbc6d8750d1778e4c886df5))
+
+
+
 # [1.1.0](https://github.com/aversini/teeny-js-utilities/compare/v1.0.1...v1.1.0) (2021-02-01)
 
 

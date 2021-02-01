@@ -1,6 +1,7 @@
 # conventional-changelog angular
 
 This is an almost exact copy of Angular configuration for conventional-changelog, but with the only change that it removes the main header (the version).
+See the original version here: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular
 
 This command:
 

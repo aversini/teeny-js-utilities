@@ -1,6 +1,8 @@
 # See documentation for this workflow here:
 # https://github.com/lsegal/github-release-from-changelog-action
 
+name: "Create Release"
+
 on:
   push:
     tags:

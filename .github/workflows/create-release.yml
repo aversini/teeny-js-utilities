@@ -1,24 +1,17 @@
 # See documentation for this workflow here:
-# https://github.com/marketplace/actions/git-release
+# https://github.com/lsegal/github-release-from-changelog-action
 
 on:
   push:
     tags:
       - "v*"
-
+---
 jobs:
-  build:
+  release_version:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Release
-        uses: docker://antonyurchenko/git-release:latest
+      - uses: actions/checkout@v2
+      - name: Generate GitHub Release
+        uses: lsegal/github-release-from-changelog-action@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DRAFT_RELEASE: "false"
-          PRE_RELEASE: "false"
-          CHANGELOG_FILE: "CHANGELOG.md"
-          ALLOW_EMPTY_CHANGELOG: "false"
-          ALLOW_TAG_PREFIX: "true"

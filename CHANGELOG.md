@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/aversini/teeny-js-utilities/compare/v1.0.1...v1.1.0) (2021-02-01)
+
+
+### Features
+
+* **shallowMerge:** adding support for a customizer function (as in _.mergeWith) ([69b1acf](https://github.com/aversini/teeny-js-utilities/commit/69b1acfd9d245dce22c150b31b7ad46cb0fd0bbe))
+
+
+
 ## [1.0.1](https://github.com/aversini/teeny-js-utilities/compare/v1.0.0...v1.0.1) (2021-01-31)
 
 

@@ -9,7 +9,7 @@
 #   -> delete LATEST.md
 #   -> create LATEST.md from previous tag to current tag
 #
-# See configuration/release for more information.
+# See configuration/latest for more information.
 #
 name: "Create Release"
 

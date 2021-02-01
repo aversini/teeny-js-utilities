@@ -1,3 +1,12 @@
+## [1.1.2](https://github.com/aversini/teeny-js-utilities/compare/v1.1.1...v1.1.2) (2021-02-01)
+
+
+### Bug Fixes
+
+* trying to fix the auto-release ([66ec439](https://github.com/aversini/teeny-js-utilities/commit/66ec439d16100d0bb622c419e390276aba1ed4e8))
+
+
+
 ## [1.1.1](https://github.com/aversini/teeny-js-utilities/compare/v1.1.0...v1.1.1) (2021-02-01)
 
 

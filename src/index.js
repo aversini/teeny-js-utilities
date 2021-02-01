@@ -100,11 +100,12 @@ module.exports = {
   // constants
   ONE_SECOND,
   // public methods
-  deepEqual,
   displayErrorMessages,
   printHTTPLogs,
   runCommand,
   shallowMerge,
   Spinner,
   upperFirst,
+  // "private" methods
+  deepEqual,
 };

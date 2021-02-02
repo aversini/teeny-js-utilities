@@ -1,3 +1,12 @@
+## [1.1.3](https://github.com/aversini/teeny-js-utilities/compare/v1.1.2...v1.1.3) (2021-02-02)
+
+
+### Bug Fixes
+
+* **runCommand:** better OS support by migrating to execa instead of exec ([f466c21](https://github.com/aversini/teeny-js-utilities/commit/f466c21daee4c758a5081c7acbe4ec5b4e7fa259))
+
+
+
 ## [1.1.2](https://github.com/aversini/teeny-js-utilities/compare/v1.1.1...v1.1.2) (2021-02-01)
 
 

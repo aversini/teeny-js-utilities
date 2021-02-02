@@ -25,10 +25,18 @@ describe("when testing for individual utilities wtih no logging side-effects", (
   });
 
   it("should return the command output via stdout", async () => {
-    const { stdout, stderr } = await runCommand("echo 'hello'", {
+    const { stdout, stderr } = await runCommand("echo hello", {
       verbose: true,
     });
     expect(stdout).toBe("hello");
+    expect(stderr).toBe("");
+  });
+
+  it("should run 2 commands one after the other", async () => {
+    const { stdout, stderr } = await runCommand("echo hello && echo world", {
+      verbose: true,
+    });
+    expect(stdout).toBe("hello\nworld");
     expect(stderr).toBe("");
   });
 

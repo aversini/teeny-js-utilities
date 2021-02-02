@@ -1,10 +1,9 @@
 const _ = require("lodash");
+const execa = require("execa");
 const { cyan, green, grey, red } = require("kleur");
 const ora = require("ora");
 const TeenyLogger = require("teeny-logger");
-const util = require("util");
 
-const exec = util.promisify(require("child_process").exec);
 const deepEqual = require("./deepEqual");
 const logger = new TeenyLogger({
   boring: process.env.NODE_ENV === "test",
@@ -63,7 +62,9 @@ const runCommand = async (
   }
 ) => {
   try {
-    const { stdout, stderr } = await exec(command);
+    const { stdout, stderr } = await execa.command(command, {
+      shell: command.includes("&&") || command.includes("||"),
+    });
     return verbose
       ? { stdout: stdout.replace(/\n$/, ""), stderr }
       : stdout.replace(/\n$/, "");

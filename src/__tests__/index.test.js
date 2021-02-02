@@ -2,6 +2,7 @@
 const _ = require("lodash");
 
 const {
+  capitalize,
   deepEqual,
   displayErrorMessages,
   printHTTPLogs,
@@ -22,6 +23,10 @@ let mockLog,
 describe("when testing for individual utilities wtih no logging side-effects", () => {
   it("should convert the first letter of a sentence to uppercase", async () => {
     expect(upperFirst("this is a test")).toBe("This is a test");
+  });
+
+  it("should Converts the first character of string to upper case and the remaining to lower case.", async () => {
+    expect(capitalize("this Is A Test")).toBe("This is a test");
   });
 
   it("should return the command output via stdout", async () => {

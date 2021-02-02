@@ -30,7 +30,7 @@ NOTE: if `messages` is not an array, or is an empty array, the method does nothi
 
 ### printHTTPLogs(req)
 
-Log simplified HTTP logs at the prompt, extracting only the methods and the path from the argument. Each log is prefixed with a locally formatted timestamp.
+Log simplified HTTP logs at the prompt, extracting only the method and the url from the argument. Each log is prefixed with a locally formatted timestamp.
 
 #### Arguments
 

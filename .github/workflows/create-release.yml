@@ -14,7 +14,7 @@
 # Once the GitHub release has been created, the package will
 # be published to npm.
 #
-name: "Create Release and Publish to NPM"
+name: "Release & Publish"
 
 on:
   push:

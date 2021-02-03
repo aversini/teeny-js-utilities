@@ -1,4 +1,4 @@
-const { cyan, green, grey } = require("kleur");
+const { cyan, green } = require("kleur");
 const TeenyLogger = require("teeny-logger");
 const logger = new TeenyLogger({
   boring: process.env.NODE_ENV === "test",
@@ -31,12 +31,9 @@ const displayErrorMessages = (errorMessages, exitStatus = 0) => {
  * @param {string} req.url the URL
  */
 const printHTTPLogs = (req) => {
-  const now = new Date();
-  logger.log(
-    `${grey("[ ")}${grey(now.toDateString())} ${grey(
-      now.toLocaleTimeString()
-    )}${grey(" ]")} ${green(req.method)} ${cyan(req.url)}`
-  );
+  logger.timestamp = true;
+  logger.log(`${green(req.method)} ${cyan(req.url)}`);
+  logger.timestamp = false;
 };
 
 module.exports = {

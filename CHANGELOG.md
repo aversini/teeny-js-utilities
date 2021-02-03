@@ -1,3 +1,12 @@
+## [1.1.4](https://github.com/aversini/teeny-js-utilities/compare/v1.1.3...v1.1.4) (2021-02-03)
+
+
+### Bug Fixes
+
+* simplify printHTTPLogs by using logger built-in timestamp ([f33ff05](https://github.com/aversini/teeny-js-utilities/commit/f33ff054a2201cefdfcdfcb23e7d64c0fce787f9))
+
+
+
 ## [1.1.3](https://github.com/aversini/teeny-js-utilities/compare/v1.1.2...v1.1.3) (2021-02-02)
 
 

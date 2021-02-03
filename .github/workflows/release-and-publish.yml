@@ -30,6 +30,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: Checkout code
+        run: npm ci
       - name: Test code
         run: npm test
       - name: Create Release

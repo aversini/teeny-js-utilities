@@ -77,6 +77,33 @@ const { stdout, stderr } = await runCommand("npm config ls", { verbose: true });
 const res = await runCommand("git add -A && git commit -a -m 'First commit'");
 ```
 
+### Performance
+
+Performance is a wrapper around nodejs Performance measurement APIs.
+
+It provides a highly simplified class for an extremely simple case:
+
+- start performance monitoring
+- do something that takes a while
+- stop performance monitoring
+- read how much time passed between start and stop (in milliseconds)
+
+#### Example
+
+```js
+const { Performance } = require("teeny-js-utilities");
+const perf = new Performance();
+
+// somewhere in your code, you want to start measuring performance:
+perf.start();
+// do long lasting actions
+(...)
+// when done, tell performance to stop:
+perf.stop();
+// the duration can now be found in the Performance class getter `results`:
+console.log(`It took ${perf.results.duration} milliseconds to run...`);
+```
+
 ### shallowMerge(objA, objB, customizer)
 
 Wrapper method for lodash `merge()` and `mergeWith()` methods.

@@ -5,6 +5,7 @@ const {
   capitalize,
   deepEqual,
   displayErrorMessages,
+  Performance,
   printHTTPLogs,
   runCommand,
   shallowMerge,
@@ -59,6 +60,18 @@ describe("when testing for individual utilities wtih no logging side-effects", (
     await expect(
       runCommand("not-a-command", { ignoreError: true })
     ).resolves.toBeUndefined();
+  });
+
+  it("should report performance data", async () => {
+    const perf = new Performance();
+    perf.start();
+    await new Promise((res) =>
+      setTimeout(() => {
+        perf.stop();
+        expect(perf.results.duration).toBeGreaterThanOrEqual(500);
+        res();
+      }, 500)
+    );
   });
 });
 
@@ -251,5 +264,24 @@ describe("when testing for utilities with logging side-effects", () => {
     );
     spyDate.mockRestore();
     spyLocaleTime.mockRestore();
+  });
+
+  it("should not report performance data and log and error if start() is called twice", async () => {
+    const perf = new Performance();
+    perf.start();
+    perf.start();
+    expect(mockLogError).toHaveBeenCalledWith(
+      "Performance.start() can only be called once"
+    );
+    expect(perf.results).toStrictEqual({});
+  });
+
+  it("should not report performance data and log and error if stop() is called without start()", async () => {
+    const perf = new Performance();
+    perf.stop();
+    expect(mockLogError).toHaveBeenCalledWith(
+      "Performance.stop() can only be called once after Performance.start()"
+    );
+    expect(perf.results).toStrictEqual({});
   });
 });

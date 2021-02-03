@@ -1,10 +1,25 @@
 # Teeny JavaScript Utilities
 
-[![npm version](https://badge.fury.io/js/teeny-js-utilities.svg)](https://badge.fury.io/js/teeny-js-utilities)
-<a href="https://david-dm.org/aversini/teeny-js-utilities"><img src="https://david-dm.org/aversini/teeny-js-utilities.svg" alt="Dependency Status"></a>
-<a href="https://david-dm.org/aversini/teeny-js-utilities/?type=dev"><img src="https://david-dm.org/aversini/teeny-js-utilities/dev-status.svg" alt="devDependency Status"></a> ![Build Status](https://github.com/aversini/teeny-js-utilities/workflows/coverage/badge.svg) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/150b9c96510247b7917a6be9510e3395)](https://app.codacy.com/gh/aversini/teeny-js-utilities?utm_source=github.com&utm_medium=referral&utm_content=aversini/teeny-js-utilities&utm_campaign=Badge_Grade)
+![npm](https://img.shields.io/npm/v/teeny-js-utilities?label=version&logo=npm)
+![David](https://img.shields.io/david/aversini/teeny-js-utilities?logo=npm)
+![David](https://img.shields.io/david/dev/aversini/teeny-js-utilities?logo=npm)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/aversini/teeny-js-utilities/coverage?label=coverage&logo=github)
+![Codacy grade](https://img.shields.io/codacy/grade/150b9c96510247b7917a6be9510e3395?logo=codacy)
 
 > Teeny JavaScript Utilities is a package helper providing common utilities for other node packages.
+
+## Table of Content
+
+- [Installation](#installation)
+- [API](#api)
+  - [displayErrorMessages(messages, exitStatus)](#displayerrormessagesmessages-exitstatus)
+  - [printHTTPLogs(req)](#printhttplogsreq)
+  - [runCommand](#runcommand)
+  - [Performance](#performance)
+  - [shallowMerge](#shallowmerge)
+  - [Spinner](#spinner)
+  - [upperFirst(str)](#upperfirststr)
+- [License](#license)
 
 ## Installation
 
@@ -55,7 +70,9 @@ will print something approaching this at the prompt:
 [ Sat Oct 31 2020 5:02:28 PM ] GET /404.html
 ```
 
-### async runCommand(command, options)
+### runCommand
+
+**runCommand(command, options) ⇒ `Promise <string>` | `Promise <object>`**
 
 Runs a shell command asynchronously and depending on the options, returns `stdout` as a string, or both `stdout` and `stderr` as an object if the `option.verbose` flag is true.
 If the command fails to run (invalid command or the commands status is anything but 0), the call will throw an exception. The exception can be ignored if the `options.ignoreError` flag is true.
@@ -104,7 +121,9 @@ perf.stop();
 console.log(`It took ${perf.results.duration} milliseconds to run...`);
 ```
 
-### shallowMerge(objA, objB, customizer)
+### shallowMerge
+
+**shallowMerge(objA, objB, customizer) ⇒ <code>object</code>**
 
 Wrapper method for lodash `merge()` and `mergeWith()` methods.
 

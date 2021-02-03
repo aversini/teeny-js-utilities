@@ -12,13 +12,13 @@
 
 - [Installation](#installation)
 - [API](#api)
-  - [displayErrorMessages(messages, exitStatus)](#displayerrormessagesmessages-exitstatus)
-  - [printHTTPLogs(req)](#printhttplogsreq)
+  - [displayErrorMessages](#displayerrormessages)
+  - [printHTTPLogs](#printhttplogs)
   - [runCommand](#runcommand)
   - [Performance](#performance)
   - [shallowMerge](#shallowmerge)
   - [Spinner](#spinner)
-  - [upperFirst(str)](#upperfirststr)
+  - [upperFirst](#upperfirst)
 - [License](#license)
 
 ## Installation
@@ -30,7 +30,9 @@
 
 ## API
 
-### displayErrorMessages(messages, exitStatus)
+### displayErrorMessages
+
+**displayErrorMessages(messages, [exitStatus])**
 
 Log multiple error messages at the prompt using `console.error` behind the scenes. If `exitStatus` is a number, the process will exit with this value. Use "false" to prevent the process from terminating.
 
@@ -43,7 +45,9 @@ NOTE: if `messages` is not an array, or is an empty array, the method does nothi
 | messages   | Array of String   | [ ]     |
 | exitStatus | Number or Boolean | 0       |
 
-### printHTTPLogs(req)
+### printHTTPLogs
+
+**printHTTPLogs(req)**
 
 Log simplified HTTP logs at the prompt, extracting only the method and the url from the argument. Each log is prefixed with a locally formatted timestamp.
 
@@ -186,9 +190,11 @@ if (success) {
 }
 ```
 
-### upperFirst(str)
+### upperFirst
 
-Capitalize the first letter of the provided string (and not all the words).
+**upperFirst(str) ⇒ `string`**
+
+Capitalize the first letter of the provided string (but not all the words).
 
 #### Arguments
 

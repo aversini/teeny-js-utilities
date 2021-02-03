@@ -1,5 +1,5 @@
 
-### Bug Fixes
+### Features
 
-* simplify printHTTPLogs by using logger built-in timestamp ([f33ff05](https://github.com/aversini/teeny-js-utilities/commit/f33ff054a2201cefdfcdfcb23e7d64c0fce787f9))
+* adding Performance class - a mini-wrapper wound node perf hooks ([6839f5c](https://github.com/aversini/teeny-js-utilities/commit/6839f5cb1605f81413638e5044eee4394659fece))
 

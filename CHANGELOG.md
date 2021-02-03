@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/aversini/teeny-js-utilities/compare/v1.1.4...v1.2.0) (2021-02-03)
+
+
+### Features
+
+* adding Performance class - a mini-wrapper wound node perf hooks ([6839f5c](https://github.com/aversini/teeny-js-utilities/commit/6839f5cb1605f81413638e5044eee4394659fece))
+
+
+
 ## [1.1.4](https://github.com/aversini/teeny-js-utilities/compare/v1.1.3...v1.1.4) (2021-02-03)
 
 

@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/aversini/teeny-js-utilities/compare/v1.2.0...v1.3.0) (2021-02-06)
+
+
+### Features
+
+* adding method "kebabCase()" ([5d96c4f](https://github.com/aversini/teeny-js-utilities/commit/5d96c4fcfcb00d26e6eba6f32eff586f736243db))
+
+
+
 # [1.2.0](https://github.com/aversini/teeny-js-utilities/compare/v1.1.4...v1.2.0) (2021-02-03)
 
 

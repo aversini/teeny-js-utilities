@@ -5,6 +5,7 @@ const {
   capitalize,
   deepEqual,
   displayErrorMessages,
+  kebabCase,
   Performance,
   printHTTPLogs,
   runCommand,
@@ -28,6 +29,19 @@ describe("when testing for individual utilities wtih no logging side-effects", (
 
   it("should Converts the first character of string to upper case and the remaining to lower case.", async () => {
     expect(capitalize("this Is A Test")).toBe("This is a test");
+  });
+
+  it("", async () => {
+    expect(kebabCase("fooBar")).toStrictEqual("foo-bar");
+    expect(kebabCase("fooBarBaz")).toStrictEqual("foo-bar-baz");
+    expect(kebabCase("foo bar")).toStrictEqual("foo-bar");
+    expect(kebabCase("foo barBaz")).toStrictEqual("foo-bar-baz");
+    expect(kebabCase("foo barBaz quux")).toStrictEqual("foo-bar-baz-quux");
+    expect(kebabCase("ceci est très sérieux")).toStrictEqual(
+      "ceci-est-tres-serieux"
+    );
+    expect(kebabCase("Foo----Bar")).toStrictEqual("foo-bar");
+    expect(kebabCase(42)).toStrictEqual("42");
   });
 
   it("should return the command output via stdout", async () => {

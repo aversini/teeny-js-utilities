@@ -13,6 +13,7 @@
 - [Installation](#installation)
 - [API](#api)
   - [displayErrorMessages](#displayerrormessages)
+  - [kebabCase](#kebabcase)
   - [printHTTPLogs](#printhttplogs)
   - [runCommand](#runcommand)
   - [Performance](#performance)
@@ -44,6 +45,26 @@ NOTE: if `messages` is not an array, or is an empty array, the method does nothi
 | ---------- | ----------------- | ------- |
 | messages   | Array of String   | [ ]     |
 | exitStatus | Number or Boolean | 0       |
+
+### kebabCase
+
+**kebabCase(str) ⇒ `string`**
+
+Convert the string to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
+
+#### Arguments
+
+| Argument | Type   | Default |
+| -------- | ------ | ------- |
+| str      | String | ""      |
+
+#### Examples
+
+```js
+const { kebabCase } = require("teeny-js-utilities");
+const str = kebabCase("hello beautiful world!");
+// str is "hello-beautiful-world"
+```
 
 ### printHTTPLogs
 

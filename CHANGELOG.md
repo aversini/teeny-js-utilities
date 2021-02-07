@@ -1,3 +1,12 @@
+# [1.5.0](https://github.com/aversini/teeny-js-utilities/compare/v1.4.0...v1.5.0) (2021-02-07)
+
+
+### Features
+
+* adding method "parseGitHubURL()" ([beb8100](https://github.com/aversini/teeny-js-utilities/commit/beb8100c0c262f3a93a43d7a7087c8f1d7208237))
+
+
+
 # [1.4.0](https://github.com/aversini/teeny-js-utilities/compare/v1.3.0...v1.4.0) (2021-02-07)
 
 

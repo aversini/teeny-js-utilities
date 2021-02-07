@@ -1,5 +1,5 @@
 
 ### Features
 
-* adding method "isScopedPackage()" ([473612a](https://github.com/aversini/teeny-js-utilities/commit/473612a9544b1308af1e17ad147e4a88cef62bfa))
+* adding method "parseGitHubURL()" ([beb8100](https://github.com/aversini/teeny-js-utilities/commit/beb8100c0c262f3a93a43d7a7087c8f1d7208237))
 

@@ -9,6 +9,7 @@ const {
   Spinner,
 } = require("./misc");
 const Performance = require("./performance");
+const { parseGitHubURL } = require("./github");
 
 module.exports = {
   // constants
@@ -18,6 +19,7 @@ module.exports = {
   displayErrorMessages,
   isScopedPackage,
   kebabCase,
+  parseGitHubURL,
   Performance,
   printHTTPLogs,
   runCommand,

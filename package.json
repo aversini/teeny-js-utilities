@@ -49,6 +49,7 @@
     "execa": "5.0.0",
     "kleur": "4.1.4",
     "lodash": "4.17.20",
+    "npm-package-arg": "8.1.0",
     "ora": "5.3.0",
     "teeny-logger": "0.2.0"
   }

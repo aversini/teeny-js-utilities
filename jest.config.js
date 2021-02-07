@@ -105,6 +105,17 @@ module.exports = {
   roots: ["src"],
 
   /**
+   * The test environment that will be used for testing. The default environment
+   * in Jest is a browser-like environment through jsdom. If you are building
+   * a node service, you can use the node option to use a node-like environment
+   * instead.
+   * @type {String}
+   *
+   * Default: "jsdom"
+   */
+  testEnvironment: "node",
+
+  /**
    * The glob patterns Jest uses to detect test files. By default
    * it looks for .js, .jsx, .ts and .tsx files inside of
    * __tests__ folders, as well as any files with a suffix of

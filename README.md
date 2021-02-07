@@ -15,6 +15,7 @@
   - [displayErrorMessages](#displayerrormessages)
   - [isScopedPackage](#isscopedpackage)
   - [kebabCase](#kebabcase)
+  - [parseGitHubURL](#parsegithuburl)
   - [printHTTPLogs](#printhttplogs)
   - [runCommand](#runcommand)
   - [Performance](#performance)
@@ -87,6 +88,42 @@ Convert the string to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Spe
 const { kebabCase } = require("teeny-js-utilities");
 const str = kebabCase("hello beautiful world!");
 // str is "hello-beautiful-world"
+```
+
+### parseGitHubURL
+
+**parseGitHubURL(url, options) ⇒ `object`**
+
+Parse a GitHub URL and tries to extract the following GitHub values:
+
+- results.host: the hostname
+- results.href: the normalized URL
+- results.name: the name of the package
+- results.owner: the owner of the package (think GitHub username)
+- results.repo: the name of the repository
+
+#### Arguments
+
+| Argument | Type   | Default                                             |
+| -------- | ------ | --------------------------------------------------- |
+| url      | String | ""                                                  |
+| options  | Object | { "baseUrls": [ "gist.github.com", "github.com" ] } |
+
+#### Examples
+
+```js
+const { parseGitHubURL } = require("teeny-js-utilities");
+cons results = parseGitHubURL("git@github.com:aversini/teeny-js-utilities.git");
+/**
+ * results is:
+ * {
+ *   host: 'github.com',
+ *   href: 'https://github.com/aversini/teeny-js-utilities',
+ *   name: 'teeny-js-utilities',
+ *   owner: 'aversini',
+ *   repo: 'aversini/teeny-js-utilities'
+ * }
+
 ```
 
 ### printHTTPLogs

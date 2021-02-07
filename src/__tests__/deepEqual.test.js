@@ -507,9 +507,8 @@ describe("areEqual", function () {
 
   it("should be true if an array contains equal objects", () => {
     const object = {};
-    const div = document.createElement("div");
-    const a = [object, div, window];
-    const b = [object, div, window];
+    const a = [object, global];
+    const b = [object, global];
 
     expect(areEqual(a, b)).toBe(true);
   });
@@ -561,21 +560,18 @@ describe("areEqual", function () {
   });
 
   it("works with values where triple-equals returns true", () => {
-    const div = document.createElement("div");
     const a = {
       a: null,
       b: undefined,
-      c: window,
-      d: div,
+      c: global,
       e: true,
       f: "string",
       g: 42,
     };
     const b = {
-      c: window,
+      c: global,
       b: undefined,
       g: 42,
-      d: div,
       f: "string",
       a: null,
       e: true,

@@ -7,6 +7,7 @@ const {
   displayErrorMessages,
   isScopedPackage,
   kebabCase,
+  parseGitHubURL,
   Performance,
   printHTTPLogs,
   runCommand,
@@ -89,7 +90,7 @@ describe("when testing for individual utilities wtih no logging side-effects", (
     await new Promise((res) =>
       setTimeout(() => {
         perf.stop();
-        expect(perf.results.duration).toBeGreaterThanOrEqual(500);
+        expect(perf.results.duration).toBeGreaterThanOrEqual(499);
         res();
       }, 500)
     );
@@ -220,6 +221,144 @@ describe("when testing for merging utilities with no logging side-effects", () =
       }
     });
     expect(deepEqual(res, { a: [1, 3], b: [2, 4] })).toBe(true);
+  });
+});
+
+describe("when testing for github utilities with no logging side-effects", () => {
+  it("should extract lots of data from a range of GitHub URLs", async () => {
+    let res = parseGitHubURL("https://github.com/aversini/teeny-js-utilities");
+
+    expect(res.host).toBe("github.com");
+    expect(res.href).toBe("https://github.com/aversini/teeny-js-utilities");
+    expect(res.name).toBe("teeny-js-utilities");
+    expect(res.owner).toBe("aversini");
+    expect(res.repo).toBe("aversini/teeny-js-utilities");
+
+    res = parseGitHubURL("git@github.com:aversini/teeny-js-utilities.git");
+
+    expect(res.host).toBe("github.com");
+    expect(res.href).toBe("https://github.com/aversini/teeny-js-utilities");
+    expect(res.name).toBe("teeny-js-utilities");
+    expect(res.owner).toBe("aversini");
+    expect(res.repo).toBe("aversini/teeny-js-utilities");
+  });
+
+  it("should extract the right owner from a range of GitHub URLs", async () => {
+    expect(parseGitHubURL("")).toBe(null);
+    expect(parseGitHubURL("https://github.com/aversini/packages").owner).toBe(
+      "aversini"
+    );
+
+    expect(parseGitHubURL("git@github.com:assemble/verb.git").owner).toBe(
+      "assemble"
+    );
+
+    expect(parseGitHubURL("git+ssh://github.com/assemble/verb.git").owner).toBe(
+      "assemble"
+    );
+
+    expect(parseGitHubURL("git@gist.github.com:9284722.git")).toBe(null);
+    expect(parseGitHubURL("git@github.com:assemble/verb.git#0.6.0").owner).toBe(
+      "assemble"
+    );
+
+    expect(
+      parseGitHubURL("git@github.com:assemble/verb.git#v0.6.0").owner
+    ).toBe("assemble");
+
+    expect(parseGitHubURL("git@github.com:assemble/verb.git").owner).toBe(
+      "assemble"
+    );
+    expect(parseGitHubURL("http://github.com/assemble/verb").owner).toBe(
+      "assemble"
+    );
+    expect(parseGitHubURL("http://github.com/assemble/verb.git").owner).toBe(
+      "assemble"
+    );
+
+    expect(parseGitHubURL("http://github.com/assemble/verb/tree").owner).toBe(
+      "assemble"
+    );
+
+    expect(
+      parseGitHubURL("http://github.com/assemble/verb/tree/master").owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL("http://github.com/assemble/verb/tree/master/foo/bar")
+        .owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL("https://assemble@github.com/assemble/verb.git").owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL("https://foo.github.com/assemble/verb/bar.tar.gz").owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL("https://foo.github.com/assemble/verb/bar.zip").owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL("https://parseGitHubURL.pages.com/assemble/verb.git").owner
+    ).toBe("assemble");
+
+    expect(parseGitHubURL("https://gist.github.com/9284722.git")).toBe(null);
+    expect(parseGitHubURL("https://github.com/assemble/verb").owner).toBe(
+      "assemble"
+    );
+    expect(parseGitHubURL("https://github.com/assemble/verb.git").owner).toBe(
+      "assemble"
+    );
+
+    expect(
+      parseGitHubURL(
+        "https://github.com/assemble/verb/blob/249b21a86400b38969cee3d5df6d2edf8813c137/README.md"
+      ).owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL(
+        "https://github.com/assemble/verb/blob/master/assemble/index.js"
+      ).owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL(
+        "https://github.com/assemble/verb/blob/master/foo/index.js"
+      ).owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL("https://github.com/assemble/verb/blob/v1.0.0/README.md")
+        .owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL("https://github.com/assemble/verb/tree/0.2.0").owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL("https://github.com/assemble/verb/tree/dev").owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL("https://github.com/assemble/verb/tree/feature/dev").owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL("https://github.com/repos/assemble/verb/tarball").owner
+    ).toBe("assemble");
+
+    expect(
+      parseGitHubURL("https://github.com/repos/assemble/verb/zipball").owner
+    ).toBe("assemble");
+
+    expect(parseGitHubURL()).toBe(null);
+    expect(parseGitHubURL("toto")).toBe(null);
+    expect(parseGitHubURL(null)).toBe(null);
   });
 });
 

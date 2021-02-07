@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/aversini/teeny-js-utilities/compare/v1.3.0...v1.4.0) (2021-02-07)
+
+
+### Features
+
+* adding method "isScopedPackage()" ([473612a](https://github.com/aversini/teeny-js-utilities/commit/473612a9544b1308af1e17ad147e4a88cef62bfa))
+
+
+
 # [1.3.0](https://github.com/aversini/teeny-js-utilities/compare/v1.2.0...v1.3.0) (2021-02-06)
 
 

@@ -113,7 +113,9 @@ Parse a GitHub URL and tries to extract the following GitHub values:
 
 ```js
 const { parseGitHubURL } = require("teeny-js-utilities");
-cons results = parseGitHubURL("git@github.com:aversini/teeny-js-utilities.git");
+const results = parseGitHubURL(
+  "git@github.com:aversini/teeny-js-utilities.git"
+);
 /**
  * results is:
  * {

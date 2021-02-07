@@ -5,6 +5,7 @@ const {
   capitalize,
   deepEqual,
   displayErrorMessages,
+  isScopedPackage,
   kebabCase,
   Performance,
   printHTTPLogs,
@@ -31,7 +32,7 @@ describe("when testing for individual utilities wtih no logging side-effects", (
     expect(capitalize("this Is A Test")).toBe("This is a test");
   });
 
-  it("", async () => {
+  it("should return a valid kebab case string", async () => {
     expect(kebabCase("fooBar")).toStrictEqual("foo-bar");
     expect(kebabCase("fooBarBaz")).toStrictEqual("foo-bar-baz");
     expect(kebabCase("foo bar")).toStrictEqual("foo-bar");
@@ -42,6 +43,12 @@ describe("when testing for individual utilities wtih no logging side-effects", (
     );
     expect(kebabCase("Foo----Bar")).toStrictEqual("foo-bar");
     expect(kebabCase(42)).toStrictEqual("42");
+  });
+
+  it("should tell if a package is scoped or not", async () => {
+    expect(isScopedPackage("not-scoped")).toBe(false);
+    expect(isScopedPackage("@versini/scoped")).toBe(true);
+    expect(isScopedPackage("not a valid name @versini/scoped")).toBe(false);
   });
 
   it("should return the command output via stdout", async () => {

@@ -13,6 +13,7 @@
 - [Installation](#installation)
 - [API](#api)
   - [displayErrorMessages](#displayerrormessages)
+  - [isScopedPackage](#isscopedpackage)
   - [kebabCase](#kebabcase)
   - [printHTTPLogs](#printhttplogs)
   - [runCommand](#runcommand)
@@ -45,6 +46,28 @@ NOTE: if `messages` is not an array, or is an empty array, the method does nothi
 | ---------- | ----------------- | ------- |
 | messages   | Array of String   | [ ]     |
 | exitStatus | Number or Boolean | 0       |
+
+### isScopedPackage
+
+**isScopedPackage(str) ⇒ `boolean`**
+
+Check if a string represents a scoped package name.
+
+#### Arguments
+
+| Argument | Type   | Default |
+| -------- | ------ | ------- |
+| str      | String | ""      |
+
+#### Examples
+
+```js
+const { isScopedPackage } = require("teeny-js-utilities");
+isScopedPackage("@versini/my-package");
+//-> true
+isScopedPackage("my-package");
+//-> false
+```
 
 ### kebabCase
 

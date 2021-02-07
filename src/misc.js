@@ -105,7 +105,13 @@ const shallowMerge = (objA, objB, customizer) => {
   }
 };
 
+const isScopedPackage = (name) => {
+  const regex = "@[a-z\\d][\\w-.]+/[a-z\\d][\\w-.]*";
+  return new RegExp(`^${regex}$`, "i").test(name);
+};
+
 module.exports = {
+  isScopedPackage,
   runCommand,
   shallowMerge,
   Spinner,

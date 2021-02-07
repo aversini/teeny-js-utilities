@@ -123,7 +123,7 @@ cons results = parseGitHubURL("git@github.com:aversini/teeny-js-utilities.git");
  *   owner: 'aversini',
  *   repo: 'aversini/teeny-js-utilities'
  * }
-
+ */
 ```
 
 ### printHTTPLogs

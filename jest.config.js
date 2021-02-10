@@ -12,18 +12,6 @@ module.exports = {
   bail: 5,
 
   /**
-   * The directory where Jest should output its coverage files.
-   * To be compatible with CodeCov in CI, please set this value
-   * to "coverage" and make sure this folder is in the
-   * .gitignore file
-   *
-   * @type {String}
-   *
-   * Default undefined
-   */
-  coverageDirectory: "coverage",
-
-  /**
    * An array of glob patterns indicating a set of files for which
    * coverage information should be collected. If a file matches
    * the specified glob pattern, coverage information will be
@@ -34,6 +22,18 @@ module.exports = {
    * Default undefined
    */
   collectCoverageFrom: ["src/**/*.js", "!src/__tests__/**/*.*"],
+
+  /**
+   * The directory where Jest should output its coverage files.
+   * To be compatible with CodeCov in CI, please set this value
+   * to "coverage" and make sure this folder is in the
+   * .gitignore file
+   *
+   * @type {String}
+   *
+   * Default undefined
+   */
+  coverageDirectory: "coverage",
 
   /**
    * This will be used to configure minimum threshold enforcement
@@ -81,6 +81,15 @@ module.exports = {
   notify: false,
 
   /**
+   * A list of paths to directories that Jest should use
+   * to search for files in.
+   * @type {Array}
+   *
+   * Default: ["<RootDir"]
+   */
+  roots: ["src"],
+
+  /**
    * A list of paths to modules that run some code to configure or
    * set up the testing framework before each test. Since
    * setupFiles executes before the test framework is installed in
@@ -94,26 +103,6 @@ module.exports = {
   setupFilesAfterEnv: [
     path.join(__dirname, "configuration/jest/before-all-env.js"),
   ],
-
-  /**
-   * A list of paths to directories that Jest should use
-   * to search for files in.
-   * @type {Array}
-   *
-   * Default: ["<RootDir"]
-   */
-  roots: ["src"],
-
-  /**
-   * The test environment that will be used for testing. The default environment
-   * in Jest is a browser-like environment through jsdom. If you are building
-   * a node service, you can use the node option to use a node-like environment
-   * instead.
-   * @type {String}
-   *
-   * Default: "jsdom"
-   */
-  testEnvironment: "node",
 
   /**
    * The glob patterns Jest uses to detect test files. By default

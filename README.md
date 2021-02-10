@@ -4,7 +4,6 @@
 ![David](https://img.shields.io/david/aversini/teeny-js-utilities?logo=npm)
 ![David](https://img.shields.io/david/dev/aversini/teeny-js-utilities?logo=npm)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/aversini/teeny-js-utilities/coverage?label=coverage&logo=github)
-![Codacy grade](https://img.shields.io/codacy/grade/150b9c96510247b7917a6be9510e3395?logo=codacy)
 
 > Teeny JavaScript Utilities is a package helper providing common utilities for other node packages.
 

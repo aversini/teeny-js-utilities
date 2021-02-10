@@ -57,8 +57,8 @@ class Spinner {
 const runCommand = async (
   command,
   { verbose: verbose, ignoreError: ignoreError } = {
-    verbose: false,
     ignoreError: false,
+    verbose: false,
   }
 ) => {
   try {
@@ -66,7 +66,7 @@ const runCommand = async (
       shell: command.includes("&&") || command.includes("||"),
     });
     return verbose
-      ? { stdout: stdout.replace(/\n$/, ""), stderr }
+      ? { stderr, stdout: stdout.replace(/\n$/, "") }
       : stdout.replace(/\n$/, "");
   } catch (err) {
     if (!ignoreError) {
@@ -111,8 +111,8 @@ const isScopedPackage = (name) => {
 };
 
 module.exports = {
+  Spinner,
   isScopedPackage,
   runCommand,
   shallowMerge,
-  Spinner,
 };

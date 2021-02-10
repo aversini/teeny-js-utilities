@@ -14,18 +14,18 @@ const { parseGitHubURL } = require("./github");
 module.exports = {
   // constants
   ONE_SECOND,
+  Performance,
+  Spinner,
   // public methods
   capitalize,
+  // "private" methods
+  deepEqual,
   displayErrorMessages,
   isScopedPackage,
   kebabCase,
   parseGitHubURL,
-  Performance,
   printHTTPLogs,
   runCommand,
   shallowMerge,
-  Spinner,
   upperFirst,
-  // "private" methods
-  deepEqual,
 };

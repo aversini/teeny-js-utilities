@@ -13,7 +13,7 @@ class Performance {
         this.perfData.duration = entry.duration;
       });
     });
-    this.perfObserver.observe({ entryTypes: ["measure"], buffer: true });
+    this.perfObserver.observe({ buffer: true, entryTypes: ["measure"] });
   }
 
   start() {

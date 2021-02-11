@@ -24,7 +24,7 @@ let mockLog,
   spyLogWarning,
   mockExit;
 
-describe("when testing for individual utilities wtih no logging side-effects", () => {
+describe("when testing for individual utilities with no logging side-effects", () => {
   it("should convert the first letter of a sentence to uppercase", async () => {
     expect(upperFirst("this is a test")).toBe("This is a test");
   });
@@ -100,13 +100,9 @@ describe("when testing for individual utilities wtih no logging side-effects", (
 describe("when testing for merging utilities with no logging side-effects", () => {
   it("should return a new configuration with keys for objB replacing keys from objA with shallowMerge", async () => {
     const configDefault = {
-      port: 8080,
       cache: 0,
       cors: false,
       gzip: true,
-      logs: false,
-      open: false,
-      path: process.cwd(),
       headers: [
         {
           key1: "value1",
@@ -115,15 +111,19 @@ describe("when testing for merging utilities with no logging side-effects", () =
           key2: "value2",
         },
       ],
+      logs: false,
+      open: false,
+      path: process.cwd(),
+      port: 8080,
     };
     const configCustom = {
-      port: 8081,
       gzip: false,
       headers: [
         {
           key1: "newValue1",
         },
       ],
+      port: 8081,
     };
     expect(deepEqual(configDefault, configDefault)).toBe(true);
     expect(deepEqual(configDefault, configCustom)).toBe(false);
@@ -171,8 +171,8 @@ describe("when testing for merging utilities with no logging side-effects", () =
       bump: {
         nextPossible: [
           {
-            type: "minor",
             default: false,
+            type: "minor",
           },
         ],
       },
@@ -181,8 +181,8 @@ describe("when testing for merging utilities with no logging side-effects", () =
       bump: {
         nextPossible: [
           {
-            type: "minor",
             default: true,
+            type: "minor",
           },
         ],
       },
@@ -205,8 +205,8 @@ describe("when testing for merging utilities with no logging side-effects", () =
     expect(
       deepEqual(res.bump.nextPossible, [
         {
-          type: "minor",
           default: true,
+          type: "minor",
         },
       ])
     ).toBe(true);

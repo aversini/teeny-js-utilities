@@ -14,6 +14,7 @@
   - [displayErrorMessages](#displayerrormessages)
   - [isScopedPackage](#isscopedpackage)
   - [kebabCase](#kebabcase)
+  - [meowOptionsHelper](#meowoptionshelper)
   - [parseGitHubURL](#parsegithuburl)
   - [printHTTPLogs](#printhttplogs)
   - [runCommand](#runcommand)
@@ -87,6 +88,63 @@ Convert the string to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Spe
 const { kebabCase } = require("teeny-js-utilities");
 const str = kebabCase("hello beautiful world!");
 // str is "hello-beautiful-world"
+```
+
+### meowOptionsHelper
+
+**meowOptionsHelper({examples, flags, parameters, usage}) ⇒ `object`**
+
+Helper to format options for [meow](https://github.com/sindresorhus/meow), a CLI helper.
+
+#### Arguments
+
+| Argument           | Type            | Default |
+| ------------------ | --------------- | ------- |
+| options            | Object          | {}      |
+| options.examples   | Array of Object | [{}]    |
+| options.flags      | Object          | {}      |
+| options.parameters | Object          | {}      |
+| options.usage      | String          | ""      |
+
+#### Examples
+
+```js
+const cli = require("meow");
+const { meowOptionsHelper } = require("teeny-js-utilities");
+const { helpText, options } = meowOptionsHelper({
+  examples: [
+    {
+      command: 'my-cli --command "chmod +x" bin',
+      comment: '## Make all files executable in the "bin" folder',
+    },
+  ],
+  flags: {
+    command: {
+      alias: "c",
+      description: "Command to execute over each node (ex: chmod +x)",
+      type: "string",
+    },
+    help: {
+      alias: "h",
+      description: "Display help instructions",
+      type: "boolean",
+    },
+    version: {
+      alias: "v",
+      description: "Output the current version",
+      type: "boolean",
+    },
+  },
+  parameters: {
+    path: {
+      default: "current folder",
+      description: "the path where to search for files",
+    },
+  },
+  usage: "my-cli [options] [path]",
+});
+
+const cli = meow(helpText, options);
 ```
 
 ### parseGitHubURL

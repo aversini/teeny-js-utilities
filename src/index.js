@@ -10,19 +10,18 @@ const {
 } = require("./misc");
 const Performance = require("./performance");
 const { parseGitHubURL } = require("./github");
+const { meowOptionsHelper } = require("./meowHelpers");
 
 module.exports = {
-  // constants
   ONE_SECOND,
   Performance,
   Spinner,
-  // public methods
   capitalize,
-  // "private" methods
   deepEqual,
   displayErrorMessages,
   isScopedPackage,
   kebabCase,
+  meowOptionsHelper,
   parseGitHubURL,
   printHTTPLogs,
   runCommand,

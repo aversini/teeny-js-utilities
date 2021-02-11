@@ -10,7 +10,7 @@ const {
 } = require("./misc");
 const Performance = require("./performance");
 const { parseGitHubURL } = require("./github");
-const { meowOptionsHelper } = require("./meowHelpers");
+const { meowOptionsHelper, meowParserHelper } = require("./meowHelpers");
 
 module.exports = {
   ONE_SECOND,
@@ -22,6 +22,7 @@ module.exports = {
   isScopedPackage,
   kebabCase,
   meowOptionsHelper,
+  meowParserHelper,
   parseGitHubURL,
   printHTTPLogs,
   runCommand,

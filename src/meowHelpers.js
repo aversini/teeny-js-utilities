@@ -148,6 +148,56 @@ const meowOptionsHelper = ({ usage, flags, parameters, examples }) => {
   };
 };
 
+/**
+ *
+ * Automatic Helper parser for https://github.com/sindresorhus/meow
+ *
+ * Example:
+ *
+ * const cli = meow(helpText, options);
+ * meowParserHelper({
+ *   cli,
+ *   restrictions: [
+ *    {
+ *      exit: 1,
+ *      message: (flag) => `Error: option '${flag.type}' is invalid`,
+ *      test: (flag) => flag.type !== "d" && flag.type !== "f"
+ *    }
+ *  ]
+ * });
+ *
+ */
+const meowParserHelper = ({ cli, restrictions }) => {
+  try {
+    if (cli.flags.help) {
+      cli.showHelp();
+      process.exit(0);
+    }
+  } catch (e) {
+    // nothing to declare officer
+  }
+
+  try {
+    if (cli.flags.version) {
+      cli.showVersion();
+      process.exit(0);
+    }
+  } catch (e) {
+    // nothing to declare officer
+  }
+
+  if (restrictions && restrictions.length) {
+    restrictions.forEach((rule) => {
+      if (rule.test(cli.flags)) {
+        // eslint-disable-next-line no-console
+        console.error(rule.message(cli.flags));
+        process.exit(rule.exit);
+      }
+    });
+  }
+};
+
 module.exports = {
   meowOptionsHelper,
+  meowParserHelper,
 };

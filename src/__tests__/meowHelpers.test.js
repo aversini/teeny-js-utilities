@@ -1,4 +1,4 @@
-const { meowOptionsHelper } = require("../index");
+const { meowOptionsHelper, meowParserHelper } = require("../index");
 
 describe("when testing for meowHelpers with no logging side-effects", () => {
   it("should return the right helpText and valid options for meow", async () => {
@@ -214,5 +214,112 @@ describe("when testing for meowHelpers with no logging side-effects", () => {
     });
     expect(helpText).toEqual(expect.stringContaining("Usage:"));
     expect(helpText).toEqual(expect.stringContaining("> my-cli [options]"));
+  });
+});
+
+/**
+ * Some utilities have logging capabilities that needs to be
+ * tested a little bit differently:
+ * - mocking process.exit
+ * - console.log
+ * - inquirer.prompt
+ */
+let mockLog,
+  mockLogError,
+  mockLogWarning,
+  spyExit,
+  spyLog,
+  spyLogError,
+  spyLogWarning,
+  mockExit;
+describe("when testing for utilities with logging side-effects", () => {
+  beforeEach(() => {
+    mockExit = jest.fn();
+    mockLog = jest.fn();
+    mockLogError = jest.fn();
+    mockLogWarning = jest.fn();
+
+    spyExit = jest.spyOn(process, "exit").mockImplementation(mockExit);
+    spyLog = jest.spyOn(console, "log").mockImplementation(mockLog);
+    spyLogError = jest.spyOn(console, "error").mockImplementation(mockLogError);
+    spyLogWarning = jest
+      .spyOn(console, "warn")
+      .mockImplementation(mockLogWarning);
+  });
+  afterEach(() => {
+    spyExit.mockRestore();
+    spyLog.mockRestore();
+    spyLogError.mockRestore();
+    spyLogWarning.mockRestore();
+  });
+
+  it("should display the proper help message and exit with 0", async () => {
+    meowParserHelper({
+      cli: {
+        flags: {
+          help: true,
+        },
+        // eslint-disable-next-line no-console
+        showHelp: () => console.log("showing help"),
+      },
+      restrictions: [],
+    });
+    expect(mockLog).toHaveBeenCalledWith("showing help");
+    expect(mockExit).toHaveBeenCalledWith(0);
+  });
+
+  it("should display the proper version and exit with 0", async () => {
+    meowParserHelper({
+      cli: {
+        flags: {
+          version: true,
+        },
+        // eslint-disable-next-line no-console
+        showVersion: () => console.log("6.6.6"),
+      },
+      restrictions: [],
+    });
+    expect(mockLog).toHaveBeenCalledWith("6.6.6");
+    expect(mockExit).toHaveBeenCalledWith(0);
+  });
+
+  it("should display the error message and exit with 666", async () => {
+    meowParserHelper({
+      cli: {
+        flags: {
+          type: "s",
+        },
+      },
+      restrictions: [
+        {
+          exit: 666,
+          message: (flag) => `Error: option '${flag.type}' is invalid`,
+          test: (flag) => flag.type !== "d",
+        },
+      ],
+    });
+    expect(mockLogError).toHaveBeenCalledWith("Error: option 's' is invalid");
+    // eslint-disable-next-line no-magic-numbers
+    expect(mockExit).toHaveBeenCalledWith(666);
+  });
+
+  it("should NOT display the error message and should not exit with 666", async () => {
+    meowParserHelper({
+      cli: {
+        flags: {
+          type: "d",
+        },
+      },
+      restrictions: [
+        {
+          exit: 666,
+          message: (flag) => `Error: option '${flag.type}' is invalid`,
+          test: (flag) => flag.type !== "d",
+        },
+      ],
+    });
+    expect(mockLogError).not.toHaveBeenCalled();
+    // eslint-disable-next-line no-magic-numbers
+    expect(mockExit).not.toHaveBeenCalled();
   });
 });

@@ -15,6 +15,7 @@
   - [isScopedPackage](#isscopedpackage)
   - [kebabCase](#kebabcase)
   - [meowOptionsHelper](#meowoptionshelper)
+  - [meowParserHelper](#meowparserhelper)
   - [parseGitHubURL](#parsegithuburl)
   - [printHTTPLogs](#printhttplogs)
   - [runCommand](#runcommand)
@@ -92,7 +93,7 @@ const str = kebabCase("hello beautiful world!");
 
 ### meowOptionsHelper
 
-**meowOptionsHelper({examples, flags, parameters, usage}) ⇒ `object`**
+**meowOptionsHelper({ examples, flags, parameters, usage }) ⇒ `object`**
 
 Helper to format options for [meow](https://github.com/sindresorhus/meow), a CLI helper.
 
@@ -106,7 +107,7 @@ Helper to format options for [meow](https://github.com/sindresorhus/meow), a CLI
 | options.parameters | Object          | {}      |
 | options.usage      | String          | ""      |
 
-#### Examples
+#### Example
 
 ```js
 const cli = require("meow");
@@ -143,8 +144,48 @@ const { helpText, options } = meowOptionsHelper({
   },
   usage: "my-cli [options] [path]",
 });
+```
 
+### meowParserHelper
+
+**meowParserHelper({ cli, restrictions })**
+
+Helper to parse options for [meow](https://github.com/sindresorhus/meow), a CLI helper.
+
+#### Arguments
+
+| Argument               | Type            | Default                                |
+| ---------------------- | --------------- | -------------------------------------- |
+| cli                    | Object          | received from meow(helpText, options); |
+| restrictions           | Array of Object | [{}]                                   |
+| restrictions[].exit    | Number          | undefined                              |
+| restrictions[].message | Function        | () => {}                               |
+| restrictions[].test    | Function        | () => {}                               |
+
+#### Note
+
+If options `--version` or `--help` are used, they will automatically trigger calls to `meow.showVersion()` and `meow.showHelp()`, respectively, and exit with 0 (`process.exit(0)`).
+
+#### Example
+
+```js
+const cli = require("meow");
+const { meowOptionsHelper, meowParserHelper } = require("teeny-js-utilities");
+
+// Configure options with meowOptionsHelper (see above)
+// and then parse the results via meowParserHelper
+const { helpText, options } = meowOptionsHelper({ ... });
 const cli = meow(helpText, options);
+meowParserHelper({
+  cli,
+  restrictions: [
+    {
+      exit: 1,
+      message: (flag) => `Error: option '${flag.type}' is invalid`,
+      test: (flag) => flag.type !== "d" && flag.type !== "f",
+    },
+  ],
+});
 ```
 
 ### parseGitHubURL

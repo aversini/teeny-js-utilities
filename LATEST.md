@@ -1,5 +1,5 @@
 
 ### Features
 
-* adding method "parseGitHubURL()" ([beb8100](https://github.com/aversini/teeny-js-utilities/commit/beb8100c0c262f3a93a43d7a7087c8f1d7208237))
+* adding method meowOptionsHelper() ([6699a26](https://github.com/aversini/teeny-js-utilities/commit/6699a26c5f3880fdf26db57a0dfbdb6a6acfc653))
 

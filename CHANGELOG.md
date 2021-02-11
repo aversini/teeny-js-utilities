@@ -1,3 +1,12 @@
+# [1.7.0](https://github.com/aversini/teeny-js-utilities/compare/v1.6.0...v1.7.0) (2021-02-11)
+
+
+### Features
+
+* adding method meowParserHelper ([34e2707](https://github.com/aversini/teeny-js-utilities/commit/34e270740512968d7cc93d5c0974e0e882db7eaa))
+
+
+
 # [1.6.0](https://github.com/aversini/teeny-js-utilities/compare/v1.5.0...v1.6.0) (2021-02-11)
 
 

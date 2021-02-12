@@ -1,3 +1,12 @@
+# [1.8.0](https://github.com/aversini/teeny-js-utilities/compare/v1.7.0...v1.8.0) (2021-02-12)
+
+
+### Features
+
+* meowOptionsHelper can build the usage string automatically ([050778f](https://github.com/aversini/teeny-js-utilities/commit/050778f3555dbcbadd8ed45968adf5021c3952ac))
+
+
+
 # [1.7.0](https://github.com/aversini/teeny-js-utilities/compare/v1.6.0...v1.7.0) (2021-02-11)
 
 

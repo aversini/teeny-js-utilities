@@ -1,5 +1,5 @@
 
 ### Features
 
-* adding method meowParserHelper ([34e2707](https://github.com/aversini/teeny-js-utilities/commit/34e270740512968d7cc93d5c0974e0e882db7eaa))
+* meowOptionsHelper can build the usage string automatically ([050778f](https://github.com/aversini/teeny-js-utilities/commit/050778f3555dbcbadd8ed45968adf5021c3952ac))
 

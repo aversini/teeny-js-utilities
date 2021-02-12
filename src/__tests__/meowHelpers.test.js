@@ -215,6 +215,66 @@ describe("when testing for meowHelpers with no logging side-effects", () => {
     expect(helpText).toEqual(expect.stringContaining("Usage:"));
     expect(helpText).toEqual(expect.stringContaining("> my-cli [options]"));
   });
+
+  it("should return the right helpText for meow with auto-usage, no options and no params", async () => {
+    const { helpText } = meowOptionsHelper({
+      usage: true,
+    });
+    expect(helpText).toEqual(expect.stringContaining("Usage:"));
+    expect(helpText).toEqual(expect.stringContaining("> processChild.js"));
+    expect(helpText).not.toEqual(expect.stringContaining("[options]"));
+  });
+
+  it("should return the right helpText for meow with auto-usage, with options and no params", async () => {
+    const { helpText } = meowOptionsHelper({
+      flags: {
+        help: true,
+      },
+      usage: true,
+    });
+    expect(helpText).toEqual(expect.stringContaining("Usage:"));
+    expect(helpText).toEqual(
+      expect.stringContaining("> processChild.js [options]")
+    );
+    expect(helpText).not.toEqual(expect.stringContaining("[path]"));
+  });
+
+  it("should return the right helpText for meow with auto-usage, with params and no options", async () => {
+    const { helpText } = meowOptionsHelper({
+      parameters: {
+        path: {
+          description: "some description",
+        },
+      },
+      usage: true,
+    });
+    expect(helpText).toEqual(expect.stringContaining("Usage:"));
+    expect(helpText).toEqual(
+      expect.stringContaining("> processChild.js [path]")
+    );
+    expect(helpText).not.toEqual(expect.stringContaining("[options]"));
+  });
+
+  it("should return the right helpText for meow with auto-usage, with options and params", async () => {
+    const { helpText } = meowOptionsHelper({
+      flags: {
+        help: true,
+      },
+      parameters: {
+        pathOne: {
+          description: "some description",
+        },
+        pathTwo: {
+          description: "some other description",
+        },
+      },
+      usage: true,
+    });
+    expect(helpText).toEqual(expect.stringContaining("Usage:"));
+    expect(helpText).toEqual(
+      expect.stringContaining("> processChild.js [options] [pathOne] [pathTwo]")
+    );
+  });
 });
 
 /**

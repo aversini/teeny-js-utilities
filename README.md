@@ -99,13 +99,13 @@ Helper to format options for [meow](https://github.com/sindresorhus/meow), a CLI
 
 #### Arguments
 
-| Argument           | Type            | Default |
-| ------------------ | --------------- | ------- |
-| options            | Object          | {}      |
-| options.examples   | Array of Object | [{}]    |
-| options.flags      | Object          | {}      |
-| options.parameters | Object          | {}      |
-| options.usage      | String          | ""      |
+| Argument           | Type              | Default |
+| ------------------ | ----------------- | ------- |
+| options            | Object            | {}      |
+| options.examples   | Array of Object   | [{}]    |
+| options.flags      | Object            | {}      |
+| options.parameters | Object            | {}      |
+| options.usage      | String or Boolean |         |
 
 #### Example
 
@@ -137,12 +137,16 @@ const { helpText, options } = meowOptionsHelper({
     },
   },
   parameters: {
-    path: {
+    src: {
       default: "current folder",
-      description: "the path where to search for files",
+      description: "the source",
+    },
+    dest: {
+      description: "the destination",
     },
   },
-  usage: "my-cli [options] [path]",
+  // use usage:true is equivalent to the next line
+  usage: "my-cli [options] [src] [dest]",
 });
 ```
 

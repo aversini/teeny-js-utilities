@@ -1,4 +1,5 @@
 const { blue, green, grey, red } = require("kleur");
+const path = require("path");
 const Table = require("cli-table3");
 const { upperFirst } = require("./strings");
 
@@ -45,7 +46,8 @@ const { upperFirst } = require("./strings");
  *
  */
 const meowOptionsHelper = ({ usage, flags, parameters, examples }) => {
-  let helpText = "\n";
+  let helpText = "",
+    usageText = "";
   const commandPrefix = "> ";
   const options = {
     allowUnknownFlags: false,
@@ -80,19 +82,28 @@ const meowOptionsHelper = ({ usage, flags, parameters, examples }) => {
   };
 
   if (usage) {
-    const optionalParameters = usage.match(/\[(.*?)\]/g);
-    const requiredParameters = usage.match(/<(.*?)>/g);
-    if (optionalParameters) {
-      optionalParameters.forEach((item) => {
-        usage = usage.replace(item, `${green(item)}`);
-      });
+    if (typeof usage === "string") {
+      const optionalParameters = usage.match(/\[(.*?)\]/g);
+      const requiredParameters = usage.match(/<(.*?)>/g);
+      if (optionalParameters) {
+        optionalParameters.forEach((item) => {
+          usage = usage.replace(item, `${green(item)}`);
+        });
+      }
+      if (requiredParameters) {
+        requiredParameters.forEach((item) => {
+          usage = usage.replace(item, `${red(item)}`);
+        });
+      }
+      usageText = `  Usage:\n    ${commandPrefix}${usage}`;
     }
-    if (requiredParameters) {
-      requiredParameters.forEach((item) => {
-        usage = usage.replace(item, `${red(item)}`);
-      });
+    if (typeof usage === "boolean") {
+      const processName = path.basename(process.argv[1]);
+      usageText = ` Usage:\n    ${commandPrefix}${processName}`;
+      if (flags) {
+        usageText += green(" [options]");
+      }
     }
-    helpText += `  Usage:\n    ${commandPrefix}${usage}`;
   }
 
   if (flags) {
@@ -129,13 +140,15 @@ const meowOptionsHelper = ({ usage, flags, parameters, examples }) => {
             ? `${grey(`(default: ${parameter.default})`)}`
             : "";
         parametersTable.push([headerCell, parameter.description, defaultCell]);
+        if (typeof usage === "boolean") {
+          usageText += ` ${green(`[${item}]`)}`;
+        }
       });
     helpText += parametersTable.toString();
   }
 
   if (examples) {
     helpText += "\n\n  Examples:\n";
-
     examples.forEach((item) => {
       helpText += `\n    ${grey(`${item.comment}`)}\n`;
       helpText += `    ${blue(`${commandPrefix}${item.command}`)}\n`;
@@ -143,7 +156,7 @@ const meowOptionsHelper = ({ usage, flags, parameters, examples }) => {
   }
 
   return {
-    helpText,
+    helpText: `\n${usageText}${helpText}`,
     options,
   };
 };

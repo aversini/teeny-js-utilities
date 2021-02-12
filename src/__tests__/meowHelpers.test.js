@@ -1,6 +1,15 @@
 const { meowOptionsHelper, meowParserHelper } = require("../index");
 
+let processArgv;
+const mockProcessName = "my-app";
 describe("when testing for meowHelpers with no logging side-effects", () => {
+  beforeEach(() => {
+    processArgv = process.argv;
+    process.argv = ["node", mockProcessName];
+  });
+  afterEach(() => {
+    process.argv = processArgv;
+  });
   it("should return the right helpText and valid options for meow", async () => {
     const { helpText, options } = meowOptionsHelper({
       examples: [
@@ -221,7 +230,7 @@ describe("when testing for meowHelpers with no logging side-effects", () => {
       usage: true,
     });
     expect(helpText).toEqual(expect.stringContaining("Usage:"));
-    expect(helpText).toEqual(expect.stringContaining("> processChild.js"));
+    expect(helpText).toEqual(expect.stringContaining(`> ${mockProcessName}`));
     expect(helpText).not.toEqual(expect.stringContaining("[options]"));
   });
 
@@ -234,7 +243,7 @@ describe("when testing for meowHelpers with no logging side-effects", () => {
     });
     expect(helpText).toEqual(expect.stringContaining("Usage:"));
     expect(helpText).toEqual(
-      expect.stringContaining("> processChild.js [options]")
+      expect.stringContaining(`> ${mockProcessName} [options]`)
     );
     expect(helpText).not.toEqual(expect.stringContaining("[path]"));
   });
@@ -250,7 +259,7 @@ describe("when testing for meowHelpers with no logging side-effects", () => {
     });
     expect(helpText).toEqual(expect.stringContaining("Usage:"));
     expect(helpText).toEqual(
-      expect.stringContaining("> processChild.js [path]")
+      expect.stringContaining(`> ${mockProcessName} [path]`)
     );
     expect(helpText).not.toEqual(expect.stringContaining("[options]"));
   });
@@ -272,7 +281,9 @@ describe("when testing for meowHelpers with no logging side-effects", () => {
     });
     expect(helpText).toEqual(expect.stringContaining("Usage:"));
     expect(helpText).toEqual(
-      expect.stringContaining("> processChild.js [options] [pathOne] [pathTwo]")
+      expect.stringContaining(
+        `> ${mockProcessName} [options] [pathOne] [pathTwo]`
+      )
     );
   });
 });

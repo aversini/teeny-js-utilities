@@ -71,6 +71,11 @@ const runCommand = async (
   } catch (err) {
     if (!ignoreError) {
       throw new Error(red(err));
+    } else {
+      return {
+        exitCode: typeof err.exitCode === "undefined" ? 1 : err.exitCode,
+        shortMessage: err.shortMessage,
+      };
     }
   }
 };

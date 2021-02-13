@@ -52,6 +52,20 @@ describe("when testing for individual utilities with no logging side-effects", (
     expect(isScopedPackage("not a valid name @versini/scoped")).toBe(false);
   });
 
+  it("should report performance data", async () => {
+    const perf = new Performance();
+    perf.start();
+    await new Promise((res) =>
+      setTimeout(() => {
+        perf.stop();
+        expect(perf.results.duration).toBeGreaterThanOrEqual(499);
+        res();
+      }, 500)
+    );
+  });
+});
+
+describe("when testing for runCommand utilities with no logging side-effects", () => {
   it("should return the command output via stdout", async () => {
     const { stdout, stderr } = await runCommand("echo hello", {
       verbose: true,
@@ -78,22 +92,23 @@ describe("when testing for individual utilities with no logging side-effects", (
     await expect(runCommand("not-a-command")).rejects.toBeTruthy();
   });
 
-  it("should not throw an error even if the command fails", async () => {
+  it("should not throw an error even if the command does not exist", async () => {
     await expect(
       runCommand("not-a-command", { ignoreError: true })
-    ).resolves.toBeUndefined();
+    ).resolves.toStrictEqual({
+      exitCode: 1,
+      shortMessage:
+        "Command failed with ENOENT: not-a-command\nspawn not-a-command ENOENT",
+    });
   });
 
-  it("should report performance data", async () => {
-    const perf = new Performance();
-    perf.start();
-    await new Promise((res) =>
-      setTimeout(() => {
-        perf.stop();
-        expect(perf.results.duration).toBeGreaterThanOrEqual(499);
-        res();
-      }, 500)
-    );
+  it("should not throw an error even if the command fails", async () => {
+    await expect(
+      runCommand("ls /no-existing-folder", { ignoreError: true })
+    ).resolves.toStrictEqual({
+      exitCode: 1,
+      shortMessage: "Command failed with exit code 1: ls /no-existing-folder",
+    });
   });
 });
 

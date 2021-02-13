@@ -40,14 +40,16 @@
 
 Log multiple error messages at the prompt using `console.error` behind the scenes. If `exitStatus` is a number, the process will exit with this value. Use "false" to prevent the process from terminating.
 
-NOTE: if `messages` is not an array, or is an empty array, the method does nothing.
-
 #### Arguments
 
 | Argument   | Type              | Default |
 | ---------- | ----------------- | ------- |
 | messages   | Array of String   | [ ]     |
 | exitStatus | Number or Boolean | 0       |
+
+#### Note
+
+If `messages` is not an array, or is an empty array, the method does nothing.
 
 ### isScopedPackage
 
@@ -275,12 +277,28 @@ If the command fails to run (invalid command or the commands status is anything 
 | options.verbose     | Boolean | false   |
 | options.ignoreError | Boolean | false   |
 
+#### Note
+
+If `ignoreError` is used, the method will not throw but will instead return an object with the keys `exitCode` and `shortMessage`.
+
 #### Examples
 
 ```js
 const { runCommand } = require("teeny-js-utilities");
 const { stdout, stderr } = await runCommand("npm config ls", { verbose: true });
-const res = await runCommand("git add -A && git commit -a -m 'First commit'");
+// -> verbose means the command return an object with stdout and stderr
+const stdout = await runCommand(
+  "git add -A && git commit -a -m 'First commit'"
+);
+// -> non-verbose means the command returns stdout directly
+```
+
+```js
+const { runCommand } = require("teeny-js-utilities");
+const { exitCode, shortMessage } = await runCommand("ls /not-a-folder", {
+  ignoreError: true,
+});
+// -> exitCode is 1 and shortMessage is "Command failed with exit code 1: ls /not-a-folder"
 ```
 
 ### Performance

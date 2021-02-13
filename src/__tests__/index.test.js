@@ -111,7 +111,7 @@ describe("when testing for runCommand utilities with no logging side-effects", (
     });
     expect(res.exitCode).toBeGreaterThan(0);
     expect(res.shortMessage).toBe(
-      "Command failed with exit code 1: ls /no-existing-folder"
+      `Command failed with exit code ${res.exitCode}: ls /no-existing-folder`
     );
   });
 });

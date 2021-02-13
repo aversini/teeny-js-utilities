@@ -1,10 +1,5 @@
 
-### Features
+### Bug Fixes
 
-* runCommand will return { exitCode, shortMessage } if ignoreError is true ([d57ecd6](https://github.com/aversini/teeny-js-utilities/commit/d57ecd62bb18c4b2477da2f5186a056ef64fc61b))
-
-
-### BREAKING CHANGES
-
-* `ignoreError` used to simply ignore errors and prevented a throw (therefore always returning undefined on error). It is now returning an object containing the error code (exitCode) and the corresponding error message (shortMessage)
+* forcing using shell for runCommand that has quotes ([2c9269b](https://github.com/aversini/teeny-js-utilities/commit/2c9269b6a4790b8a107f1b4ca133a23c0db8f15d))
 

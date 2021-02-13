@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/aversini/teeny-js-utilities/compare/v2.0.0...v2.0.1) (2021-02-13)
+
+
+### Bug Fixes
+
+* forcing using shell for runCommand that has quotes ([2c9269b](https://github.com/aversini/teeny-js-utilities/commit/2c9269b6a4790b8a107f1b4ca133a23c0db8f15d))
+
+
+
 # [2.0.0](https://github.com/aversini/teeny-js-utilities/compare/v1.8.0...v2.0.0) (2021-02-13)
 
 

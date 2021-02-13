@@ -93,9 +93,11 @@ describe("when testing for runCommand utilities with no logging side-effects", (
   });
 
   it("should not throw an error even if the command does not exist", async () => {
-    await expect(
-      runCommand("not-a-command", { ignoreError: true })
-    ).resolves.toStrictEqual({
+    expect.assertions(1);
+    const res = await runCommand("not-a-command", {
+      ignoreError: true,
+    });
+    expect(res).toStrictEqual({
       exitCode: 1,
       shortMessage:
         "Command failed with ENOENT: not-a-command\nspawn not-a-command ENOENT",
@@ -103,12 +105,14 @@ describe("when testing for runCommand utilities with no logging side-effects", (
   });
 
   it("should not throw an error even if the command fails", async () => {
-    await expect(
-      runCommand("ls /no-existing-folder", { ignoreError: true })
-    ).resolves.toStrictEqual({
-      exitCode: 1,
-      shortMessage: "Command failed with exit code 1: ls /no-existing-folder",
+    expect.assertions(2);
+    const res = await runCommand("ls /no-existing-folder", {
+      ignoreError: true,
     });
+    expect(res.exitCode).toBeGreaterThan(0);
+    expect(res.shortMessage).toBe(
+      "Command failed with exit code 1: ls /no-existing-folder"
+    );
   });
 });
 

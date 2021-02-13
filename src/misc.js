@@ -63,7 +63,18 @@ const runCommand = async (
 ) => {
   try {
     const { stdout, stderr } = await execa.command(command, {
-      shell: command.includes("&&") || command.includes("||"),
+      /**
+       * For some reason, a command with a " or ' in execa.command() will
+       * fail, but it works if shell is set to true... It would work if
+       * the command() API is not used:
+       * execa("git", ["commit", "-m", "some message"]);
+       * Same problems with && and ||.
+       */
+      shell:
+        command.includes('"') ||
+        command.includes("'") ||
+        command.includes("&&") ||
+        command.includes("||"),
     });
     return verbose
       ? { stderr, stdout: stdout.replace(/\n$/, "") }

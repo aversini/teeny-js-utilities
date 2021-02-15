@@ -1,3 +1,12 @@
+# [2.1.0](https://github.com/aversini/teeny-js-utilities/compare/v2.0.1...v2.1.0) (2021-02-15)
+
+
+### Features
+
+* adding method uniqueID() ([5351dcb](https://github.com/aversini/teeny-js-utilities/commit/5351dcb2cc22d1b5d55e79d2ad7492226728b427))
+
+
+
 ## [2.0.1](https://github.com/aversini/teeny-js-utilities/compare/v2.0.0...v2.0.1) (2021-02-13)
 
 

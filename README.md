@@ -19,7 +19,6 @@
   - [parseGitHubURL](#parsegithuburl)
   - [printHTTPLogs](#printhttplogs)
   - [runCommand](#runcommand)
-  - [Performance](#performance)
   - [shallowMerge](#shallowmerge)
   - [Spinner](#spinner)
   - [uniqueID](#uniqueid)
@@ -300,33 +299,6 @@ const { exitCode, shortMessage } = await runCommand("ls /not-a-folder", {
   ignoreError: true,
 });
 // -> exitCode is 1 and shortMessage is "Command failed with exit code 1: ls /not-a-folder"
-```
-
-### Performance
-
-Performance is a wrapper around nodejs Performance measurement APIs.
-
-It provides a highly simplified class for an extremely simple case:
-
-- start performance monitoring
-- do something that takes a while
-- stop performance monitoring
-- read how much time passed between start and stop (in milliseconds)
-
-#### Example
-
-```js
-const { Performance } = require("teeny-js-utilities");
-const perf = new Performance();
-
-// somewhere in your code, you want to start measuring performance:
-perf.start();
-// do long lasting actions
-(...)
-// when done, tell performance to stop:
-perf.stop();
-// the duration can now be found in the Performance class getter `results`:
-console.log(`It took ${perf.results.duration} milliseconds to run...`);
 ```
 
 ### shallowMerge

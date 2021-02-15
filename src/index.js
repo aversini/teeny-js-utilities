@@ -9,13 +9,11 @@ const {
   Spinner,
   uniqueID,
 } = require("./misc");
-const Performance = require("./performance");
 const { parseGitHubURL } = require("./github");
 const { meowOptionsHelper, meowParserHelper } = require("./meowHelpers");
 
 module.exports = {
   ONE_SECOND,
-  Performance,
   Spinner,
   capitalize,
   deepEqual,

@@ -7,6 +7,7 @@ const {
   runCommand,
   shallowMerge,
   Spinner,
+  uniqueID,
 } = require("./misc");
 const Performance = require("./performance");
 const { parseGitHubURL } = require("./github");
@@ -27,5 +28,6 @@ module.exports = {
   printHTTPLogs,
   runCommand,
   shallowMerge,
+  uniqueID,
   upperFirst,
 };

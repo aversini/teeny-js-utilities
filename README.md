@@ -22,6 +22,7 @@
   - [Performance](#performance)
   - [shallowMerge](#shallowmerge)
   - [Spinner](#spinner)
+  - [uniqueID](#uniqueid)
   - [upperFirst](#upperfirst)
 - [License](#license)
 
@@ -391,6 +392,26 @@ if (success) {
 } else {
   spinner.fail("Process failed miserably...");
 }
+```
+
+### uniqueID
+
+**uniqueID(prefix) ⇒ `string`**
+
+Generates a unique ID. If prefix is given, the ID is appended to it.
+
+#### Arguments
+
+| Argument | Type   | Default |
+| -------- | ------ | ------- |
+| prefix   | String | ""      |
+
+#### Examples
+
+```js
+const { uniqueID } = require("teeny-js-utilities");
+const str = uniqueID("some-prefix-");
+// str looks like: "some-prefix-28834903784521426'
 ```
 
 ### upperFirst

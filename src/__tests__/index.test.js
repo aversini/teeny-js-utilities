@@ -12,6 +12,7 @@ const {
   printHTTPLogs,
   runCommand,
   shallowMerge,
+  uniqueID,
   upperFirst,
 } = require("../index");
 
@@ -62,6 +63,41 @@ describe("when testing for individual utilities with no logging side-effects", (
         res();
       }, 500)
     );
+  });
+});
+
+describe("when testing for uniqueID with no logging side-effects", () => {
+  it("should return two unique random numbers in both dev and prod mode", () => {
+    const nodeEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = "production";
+    expect(uniqueID()).not.toEqual(uniqueID());
+    process.env.NODE_ENV = "development";
+    expect(uniqueID()).not.toEqual(uniqueID());
+
+    // Restore original node env.
+    process.env.NODE_ENV = nodeEnv;
+  });
+  it("should return two prefixed, unique random numbers in dev mode", () => {
+    const nodeEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV !== "production";
+    const randomString1 = uniqueID("some-prefix-");
+    const randomString2 = uniqueID("some-prefix-");
+    expect(randomString1).toMatch(/some-prefix-[0-9]{1,}/);
+    expect(randomString1).not.toEqual(randomString2);
+
+    // Restore original node env.
+    process.env.NODE_ENV = nodeEnv;
+  });
+  it("should return two prefixed, unique random numbers in prod mode", () => {
+    const nodeEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = "production";
+    const randomString1 = uniqueID("some-prefix-");
+    const randomString2 = uniqueID("some-prefix-");
+    expect(randomString1).toMatch(/some-prefix-[0-9]{10,}/);
+    expect(randomString1).not.toEqual(randomString2);
+
+    // Restore original node env.
+    process.env.NODE_ENV = nodeEnv;
   });
 });
 

@@ -1,6 +1,6 @@
 {
   "name": "teeny-js-utilities",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "license": "MIT",
   "author": "Arno Versini",
   "description": "Common utilities for other node packages",

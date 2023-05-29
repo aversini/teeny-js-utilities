@@ -7,6 +7,8 @@
 
 > Teeny JavaScript Utilities is a package helper providing common utilities for other node packages.
 
+**DEPRECATION NOTICE:** For newer Node versions support, please use https://github.com/aversini/node-cli
+
 ## Table of Content
 
 - [Installation](#installation)
